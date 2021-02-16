@@ -91,7 +91,7 @@ class SinglyLinkedList {
             return false;
         } else {
             this.get(idx).val = val;
-            return true
+            return true;
         }
     }
 
@@ -113,14 +113,35 @@ class SinglyLinkedList {
         }
     }
 
+    remove(idx) {
+        if (idx < 0 || idx >= this.length) {
+            return undefined;
+        } else if (idx === 0) {
+            this.shift();
+        } else if (idx === this.length - 1) {
+            this.pop();
+        } else {
+            let prev = this.get(idx - 1);
+            let removed = prev.next;
+            prev.next = removed.next;
+            this.length--;
+            return removed;
+        }
+    }
 
+    reverse() {
+        let node = this.head;
+        this.head = this.tail;
+        this.tail = node;
+        let next;
+        let prev = null;
+        for (let i = 0; i < this.length; i++) {
+            next = node.next;
+            node.next = prev;
+            prev = node;
+            node = next;
+        }
+        return this;
+    }
 }
-let list = new SinglyLinkedList()
-list.push(1);
-list.push(2);
-list.push(3);
-console.log(list);
-console.log(list.insert(0, 0));
-console.log(list);
-list.insert(1, 'One');
-console.log(list);
+
